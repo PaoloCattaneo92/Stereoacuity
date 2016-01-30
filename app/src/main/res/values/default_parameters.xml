@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <integer name="default_maxdisparity">20</integer>
+    <integer name="default_mindisparity">10</integer>
+
+</resources>

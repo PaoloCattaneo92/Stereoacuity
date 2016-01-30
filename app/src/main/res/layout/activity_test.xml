@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:fitsSystemWindows="true"
+    tools:context="paolocattaneo.stereoacuity.TestActivity">
+
+    <!-- GLOBAL LAYOUT -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- IMGVIEW  -->
+
+        <ImageView
+            android:id="@+id/testImgView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"/>
+
+
+            <!-- DEBUG IMAGE SHOWN TEXT VIEW -->
+        <!--
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Test Description"
+                android:id="@+id/txt_testDescription"
+                android:layout_marginBottom="63dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Previous Text"
+                android:id="@+id/txt_prevTestDescription"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="39dp" />
+                -->
+        <!-- SKIP BUTTON LAYOUT (un layout per un bottone? lol) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:id="@+id/linearLayout2"
+            android:layout_above="@+id/linearLayout"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_skip"
+                android:onClick="OnClickSkip" />
+
+
+        </LinearLayout>
+
+
+
+        <!-- BUTTONS LAYOUT -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:id="@+id/linearLayout"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+
+            <Button
+                android:id="@+id/btn_square"
+                android:layout_width="@dimen/training_buttons"
+                android:layout_height="@dimen/training_buttons"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:background="@drawable/square"
+                android:onClick="OnClickSquare"/>
+
+            <Button
+                android:id="@+id/btn_circle"
+                android:layout_width="@dimen/training_buttons"
+                android:layout_height="@dimen/training_buttons"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:background="@drawable/circle"
+                android:onClick="OnClickCircle"/>
+
+            <Button
+                android:id="@+id/btn_triangle"
+                android:layout_width="@dimen/training_buttons"
+                android:layout_height="@dimen/training_buttons"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:background="@drawable/triangle"
+                android:onClick="OnClickTriangle"/>
+
+            <Button
+                android:id="@+id/btn_rectangle"
+                android:layout_width="@dimen/training_buttons"
+                android:layout_height="@dimen/training_buttons"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:background="@drawable/rectangle"
+                android:onClick="OnClickRectangle"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+    <!-- end global layout -->
+
+
+
+
+</android.support.design.widget.CoordinatorLayout>

@@ -1,0 +1,38 @@
+<resources> MESSAGES -->
+    <!-- MAIN STRINGS -->
+    <string name="app_name">Stereoacuity</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- BUTTONS STRINGS -->
+    <string name="btn_login">Change User</string>
+    <string name="btn_settings">Settings</string>
+    <string name="btn_confirm">Confirm</string>
+    <string name="btn_back">Back</string>
+    <string name="btn_training">Start Training</string>
+    <string name="btn_test">Start Test</string>
+    <string name="btn_skip">Skip</string>
+
+
+    <!-- LABELS AND MESSAGES -->
+    <string name="welcomemessage">Welcome to Stereoacuity Test App. </string>
+    <string name="lbl_username">Insert new or pick one</string>
+    <string name="lbl_password"> Password </string>
+    <string name="disparity_message_decrease">Decrease disparity for harder training.</string>
+    <string name="disparity_message_increase">Increase disparity for easier training.</string>
+    <string name="msg_alert_settings">WARNING: Change these settings may do some bad things. You can always reset them.</string>
+
+    <!-- TITLES -->
+    <string name="title_activity_login">Change User</string>
+    <string name="title_activity_training">TrainingActivity</string>
+    <string name="title_activity_test">TestActivity</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_settings">Settings</string>
+    <string name="btn_reset">Reset</string>
+    <string name="setting_description_maxdisparity">The maximum disparity used to create the images for the Test.</string>
+    <string name="setting_description_mindisparity">The smallest disparity used to create the images for the Test.</string>
+    <string name="setting_description_offset">The offset of disparity between Test cases.</string>
+    <string name="setting_description_ncorrtonextlevel">The number of correct answer befor decreasing the disparity.</string>
+    <string name="setting_description_nerrtostop">The number of wrong answer before stop the Test and certificate the previous confirmed disparity level.</string>
+
+
+</resources>

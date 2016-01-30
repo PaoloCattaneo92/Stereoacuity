@@ -1,0 +1,9 @@
+29/01/2016
+- TestActivity e TrainingActivity con bitmap di bianco/nero random, rimossi i textview per debuggare
+
+
+28/01/2016
+- TrainingActivity ora con una bitmap di bianco/nero random
+
+24/01/2016
+- Inizio versione

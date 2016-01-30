@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:fitsSystemWindows="true"
+    tools:context="paolocattaneo.stereoacuity.TrainingActivity">
+
+    <!-- GLOBAL LAYOUT -->
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="1">
+
+        <!-- TRAINING LAYOUT -->
+
+        <ImageView
+            android:id="@+id/testImgView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"/>
+
+
+        <!--
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Test Description"
+                android:id="@+id/txt_testDescription"
+                android:layout_marginBottom="63dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Previous Text"
+                android:id="@+id/txt_prevTestDescription"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="39dp" /> -->
+
+        <!-- DISPARITY MODIFIER -->
+        <LinearLayout
+            android:id="@+id/layout_disparitymanager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_above="@+id/layout_buttons"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+
+            <TextView
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:id="@+id/txt_disparity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20"/>
+
+            <Button
+                android:id="@+id/btn_plus"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:text="+"
+                android:onClick="addDisparity"/>
+
+            <Button
+                android:id="@+id/btn_minus"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:text="-"
+                android:onClick="subDisparity"/>
+
+            <TextView
+                android:id="@+id/txt_disparitymessage"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/disparity_message_decrease"/>
+
+
+        </LinearLayout>
+
+        <!-- BUTTONS LAYOUT -->
+        <LinearLayout
+            android:id="@+id/layout_buttons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:layout_alignParentBottom="true">
+
+            <Button
+                android:id="@+id/btn_square"
+                android:layout_width="@dimen/training_buttons"
+                android:layout_height="@dimen/training_buttons"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:background="@drawable/square"
+                android:onClick="OnClickSquare"/>
+
+            <Button
+                android:id="@+id/btn_circle"
+                android:layout_width="@dimen/training_buttons"
+                android:layout_height="@dimen/training_buttons"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:background="@drawable/circle"
+                android:onClick="OnClickCircle"/>
+
+            <Button
+                android:id="@+id/btn_triangle"
+                android:layout_width="@dimen/training_buttons"
+                android:layout_height="@dimen/training_buttons"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:background="@drawable/triangle"
+                android:onClick="OnClickTriangle"/>
+
+            <Button
+                android:id="@+id/btn_rectangle"
+                android:layout_width="@dimen/training_buttons"
+                android:layout_height="@dimen/training_buttons"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:background="@drawable/rectangle"
+                android:onClick="OnClickRectangle"/>
+
+        </LinearLayout>
+
+    </RelativeLayout> <!-- end global layout -->
+
+
+</android.support.design.widget.CoordinatorLayout>
