@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import utils.Certification_Value;
 import utils.DefaultValues;
 import utils.Session;
 import utils.Shape;
@@ -47,14 +48,12 @@ public class TestActivity extends AppCompatActivity {
     ImageView testImgView;
 
     /** Test variables */
-    Test actualTest;
     int numTest;
-    int nCorr;
-    int nErr;
-    int disparity;
+    Session session;
     Shape shape;
     String shapestring;
     ArrayList<Test> testList;
+    String actualUser;
 
     /** Test parameters */
     int displayWidth;
@@ -73,24 +72,27 @@ public class TestActivity extends AppCompatActivity {
         //initialize variables
         sharedPref = getSharedPreferences(PREFS, MODE_PRIVATE);
         loadPreferences();
-        disparity = MAXDISPARITY;
         shape = Shape.NOIMAGE;
         shapestring = shape.toString();
         numTest=1;
-        nCorr=0;
-        nErr=0;
-        testList = new ArrayList<>();
+        Bundle dataFromMain = getIntent().getExtras();
+        actualUser = dataFromMain.getString("actualUser");
 
+        //initialize screen dimensions
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         displayWidth=dm.widthPixels;
         displayHeigth=dm.heightPixels;
         displayDensity=dm.densityDpi;
 
-        //start first test
+        //session handler
+        testList = new ArrayList<>();
+        session.disparity = MAXDISPARITY;
+        session = new Session(actualUser,sharedPref);
+
+        //start  test
         startTest();
 
-        //from now on everything is ruled with buttons
     }
 
     /**
@@ -98,16 +100,17 @@ public class TestActivity extends AppCompatActivity {
      */
     private void startTest() {
         String buff;
-        if(actualTest!=null) {
-            buff = actualTest.toString()+", nErr= "+nErr+", nCorr= "+nCorr;
+        if(session.actualTest!=null) {
+            buff = session.actualTest.toString()+", nErr= "+session.nErr+", nCorr= "+session.nCorr;
             Log.d(TAG,"Previous test was "+buff);
         }
 
-        actualTest = new Test(numTest,disparity,Test.randomShape());
-        actualTest.buildBitmap(displayWidth,displayHeigth, actualTest.disparity);
-        testImgView.setImageBitmap(actualTest.bitmap);
+       //create and show actual test of the session
+        session.actualTest = new Test(numTest,session.disparity,Test.randomShape());
+        session.actualTest.buildBitmap(displayWidth,displayHeigth, session.disparity);
+        testImgView.setImageBitmap(session.actualTest.bitmap);
 
-        buff = actualTest.toString()+", nErr= "+nErr+", nCorr= "+nCorr;
+        buff = session.actualTest.toString()+", nErr= "+session.nErr+", nCorr= "+session.nCorr;
         Log.d(TAG,"Actual test is "+buff);
     }
 
@@ -171,189 +174,56 @@ public class TestActivity extends AppCompatActivity {
      */
     public void OnClickSkip(View view) {
         numTest++;
-        testList.add(actualTest);
+        session.nErr++; // skip counts as an error
+        session.testsList.add(session.actualTest);
         startTest();
     }
 
     /** BUTTONS */
     public void OnClickSquare(View view) {
         numTest++; //always increase numTest
-        testList.add(actualTest); //and add it to the list
+        session.testsList.add(session.actualTest);
 
-        //Correct Choice
-        if(actualTest.shape.equals(Shape.SQUARE)) {
-            actualTest.result=true;
-            Toast.makeText(this, "Correct choice", Toast.LENGTH_SHORT).show();
-            nCorr++;
-
-            if(nCorr<3) {
-                startTest(); //new Test with the same disparity
-                            //remember nCorr,nErr to see how long to stay in this disparity level
-            } else {
-                if(disparity==MINDISPARITY) {
-                    CertificateNow();
-                } else {
-                    disparity-=OFFSET;  //decrease disparity
-                    nCorr=0;            //reset nCorr, nErr
-                    nErr=0;
-                    startTest();        //new Test in a new lesser disparity level
-                }
-            }
-
-        }
-        else
-        //Wrong Choice
-        {
-            actualTest.result=false;
-            Toast.makeText(this, "Wrong choice, try again.", Toast.LENGTH_SHORT).show();
-            nErr++;
-
-            if(nErr<3) {
-                startTest(); //new Test with the same disparity
-                            //remember nCorr, nErr, to see how long to stay in this disparity level
-            } else {
-                disparity+=OFFSET; //you certificate previous disparity
-                CertificateNow();
-            }
-
+        if(session.Continue(Shape.SQUARE)) {
+            startTest();
+        } else {
+            CertificateNow();
         }
 
     } /** end Button*/
 
     public void OnClickCircle(View view) {
         numTest++; //always increase numTest
-        testList.add(actualTest); //and add it to the list
+        session.testsList.add(session.actualTest);
 
-        //Correct Choice
-        if(actualTest.shape.equals(Shape.CIRCLE)) {
-            actualTest.result=true;
-            Toast.makeText(this, "Correct choice", Toast.LENGTH_SHORT).show();
-            nCorr++;
-            //txt_prevTestDescription.setText(actualTest.toString());
-
-            if(nCorr<3) {
-                startTest(); //new Test with the same disparity
-                //remember nCorr,nErr to see how long to stay in this disparity level
-            } else {
-                if(disparity==MINDISPARITY) {
-                    CertificateNow();
-                } else {
-                    disparity-=OFFSET;  //decrease disparity
-                    nCorr=0;            //reset nCorr, nErr
-                    nErr=0;
-                    startTest();        //new Test in a new lesser disparity level
-                }
-            }
-
+        if(session.Continue(Shape.CIRCLE)) {
+            startTest();
+        } else {
+            CertificateNow();
         }
-        else
-        //Wrong Choice
-        {
-            actualTest.result=false;
-            Toast.makeText(this, "Wrong choice, try again.", Toast.LENGTH_SHORT).show();
-            nErr++;
-            //txt_prevTestDescription.setText(actualTest.toString());
-
-            if(nErr<3) {
-                startTest(); //new Test with the same disparity
-                //remember nCorr, nErr, to see how long to stay in this disparity level
-            } else {
-                disparity+=OFFSET; //you certificate previous disparity
-                CertificateNow();
-            }
 
         }
 
-    } /** end Button*/
 
     public void OnClickTriangle(View view) {
         numTest++; //always increase numTest
-        testList.add(actualTest); //and add it to the list
+        session.testsList.add(session.actualTest);
 
-        //Correct Choice
-        if(actualTest.shape.equals(Shape.TRIANGLE)) {
-            actualTest.result=true;
-            Toast.makeText(this, "Correct choice", Toast.LENGTH_SHORT).show();
-            nCorr++;
-            //txt_prevTestDescription.setText(actualTest.toString());
-
-            if(nCorr<3) {
-                startTest(); //new Test with the same disparity
-                //remember nCorr,nErr to see how long to stay in this disparity level
-            } else {
-                if(disparity==MINDISPARITY) {
-                    CertificateNow();
-                } else {
-                    disparity-=OFFSET;  //decrease disparity
-                    nCorr=0;            //reset nCorr, nErr
-                    nErr=0;
-                    startTest();        //new Test in a new lesser disparity level
-                }
-            }
-
+        if(session.Continue(Shape.TRIANGLE)) {
+            startTest();
+        } else {
+            CertificateNow();
         }
-        else
-        //Wrong Choice
-        {
-            actualTest.result=false;
-            Toast.makeText(this, "Wrong choice, try again.", Toast.LENGTH_SHORT).show();
-            nErr++;
-            //txt_prevTestDescription.setText(actualTest.toString());
-
-            if(nErr<3) {
-                startTest(); //new Test with the same disparity
-                //remember nCorr, nErr, to see how long to stay in this disparity level
-            } else {
-                disparity+=OFFSET; //you certificate previous disparity
-                CertificateNow();
-            }
-
-        }
-
-    } /** end Button*/
+    }
 
     public void OnClickRectangle(View view) {
         numTest++; //always increase numTest
-        testList.add(actualTest); //and add it to the list
+        session.testsList.add(session.actualTest);
 
-        //Correct Choice
-        if(actualTest.shape.equals(Shape.RECTANGLE)) {
-            actualTest.result=true;
-            Toast.makeText(this, "Correct choice", Toast.LENGTH_SHORT).show();
-            nCorr++;
-            //txt_prevTestDescription.setText(actualTest.toString());
-
-            if(nCorr<3) {
-                startTest(); //new Test with the same disparity
-                //remember nCorr,nErr to see how long to stay in this disparity level
-            } else {
-                if(disparity==MINDISPARITY) {
-                    CertificateNow();
-                } else {
-                    disparity-=OFFSET;  //decrease disparity
-                    nCorr=0;            //reset nCorr, nErr
-                    nErr=0;
-                    startTest();        //new Test in a new lesser disparity level
-                }
-            }
-
-        }
-        else
-        //Wrong Choice
-        {
-            actualTest.result=false;
-            Toast.makeText(this, "Wrong choice, try again.", Toast.LENGTH_SHORT).show();
-            nErr++;
-            //txt_prevTestDescription.setText(actualTest.toString());
-
-            if(nErr<3) {
-                startTest(); //new Test with the same disparity
-                //remember nCorr, nErr, to see how long to stay in this disparity level
-            } else {
-                disparity+=OFFSET; //you certificate previous disparity
-                CertificateNow();
-            }
-
+        if(session.Continue(Shape.RECTANGLE)) {
+            startTest();
+        } else {
+            CertificateNow();
         }
 
     } /** end Button*/
@@ -363,13 +233,15 @@ public class TestActivity extends AppCompatActivity {
      * This method saves the certifications.
      */
     private void CertificateNow() {
-        //TODO controlla vecchie certificazioni dello stesso utente
-        //
-        Session lastSession = new Session(testList, disparity, "Mario Rossi",sharedPref);
-        Toast.makeText(this, "Test ended. Certification "+disparity+" disparity value", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        Log.d(TAG,"Last Session is "+lastSession.toStringVerbose());
+        //close the session and certificate
+        session.certification_value = Certification_Value.intToCertificationValue(session.disparity,sharedPref);
 
+        //TODO salva la certificazione da qualche parte
+        Intent intent = new Intent(this, MainActivity.class);
+        Log.d(TAG,"Last Session is "+session.toString());
+        Log.v(TAG, "(verbose)Last session is " + session.toStringVerbose());
+
+
+        startActivity(intent);
     }
 }

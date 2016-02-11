@@ -1,4 +1,4 @@
-<resources> MESSAGES -->
+<resources>MESSAGES -->
     <!-- MAIN STRINGS -->
     <string name="app_name">Stereoacuity</string>
     <string name="action_settings">Settings</string>
@@ -11,6 +11,7 @@
     <string name="btn_training">Start Training</string>
     <string name="btn_test">Start Test</string>
     <string name="btn_skip">Skip</string>
+    <string name="btn_results">Results</string>
 
 
     <!-- LABELS AND MESSAGES -->
@@ -33,6 +34,6 @@
     <string name="setting_description_offset">The offset of disparity between Test cases.</string>
     <string name="setting_description_ncorrtonextlevel">The number of correct answer befor decreasing the disparity.</string>
     <string name="setting_description_nerrtostop">The number of wrong answer before stop the Test and certificate the previous confirmed disparity level.</string>
-
+    <string name="title_results">Results</string>
 
 </resources>

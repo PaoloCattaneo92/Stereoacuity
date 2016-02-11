@@ -43,8 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private static int NCORR_TO_NEXTLEVEL;  private int actual_ncorr_to_nextlevel;
     private static int NERR_TO_STOPTEST;    private int actual_nerr_to_stoptest;
     /** Algorithm Constants */
-    public static int imgWidth = 400;
-    public static int imgHeight = 400;
+    //...
 
 
     /**
@@ -63,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         if(lastUser.equals("No User Found")) askNewUser();
         TextView txt_username = (TextView)findViewById(R.id.txt_username);
         txt_username.setText(lastUser);
+        actualUser = lastUser;
         Log.d(TAG,"Last User loaded is "+lastUser);
 
         //loadotherpreferences
@@ -206,6 +206,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void openTest(View view) {
         Intent intent = new Intent(this, TestActivity.class);
+        intent.putExtra("actualUser",actualUser);
         startActivity(intent);
     }
 
@@ -214,6 +215,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
-
+    public void openResults(View view) {
+        Intent i = new Intent(this, ResultsActivity.class);
+        i.putExtra("actualUser",actualUser);
+        startActivity(i);
+    }
 }
